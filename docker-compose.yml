@@ -3,6 +3,8 @@ services:
   app:
     build: .
     restart: always
+    volumes:
+      - ./www/.env:/var/www/html/.env
     volumes_from:
       - volumes_data
     links:
@@ -42,8 +44,6 @@ services:
     image: mariadb:latest
     volumes_from:
       - volumes_data
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "secret"
       MYSQL_DATABASE: "homestead"
@@ -53,7 +53,7 @@ services:
   volumes_data:
     image: tianon/true
     volumes:
-      - ./store/sessions:/sessions
-      - ./store/database:/var/lib/mysql
-      - ./store/log/laravel:/var/log/laravel
+      - ./storage/sessions:/sessions
+      - ./storage/database:/var/lib/mysql
+      - ./storage/log/laravel:/var/log/laravel
       
